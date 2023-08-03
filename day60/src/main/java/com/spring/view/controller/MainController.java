@@ -1,19 +1,26 @@
 package com.spring.view.controller;
 
-import java.io.IOException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.spring.biz.board.BoardDAO;
 
-public class MainController implements Controller{
-
-	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+@Controller
+public class MainController {
+	
+	@RequestMapping(value = "/main.do")
+	public ModelAndView main(BoardDAO bDAO, ModelAndView mav) {
 		
+		System.out.println("로그: MainController(): ");
 		
-		return null;
+		mav.addObject("datas", bDAO.selectAll(null));
+		
+		mav.setViewName("main"); // /WEB-INF/views/ + main + .jsp
+		
+		return mav;
+		
+//		return "main"; // .jsp(VIEW)로 가려고함
 	}
 
 }
